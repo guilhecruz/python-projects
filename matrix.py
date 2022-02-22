@@ -30,7 +30,7 @@ class Bus:
         print(self.assentos_livres)
 
     def export_file(self):
-        f = open("result.txt", "a")
+        f = open("resultado.txt", "a")
         f.write(f"Passagens vendidas: {self.tickets_bought}\nPassagens disponíveis: {self.assentos_livres}\n=======\n")
         f.close()
 
