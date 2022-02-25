@@ -1,4 +1,4 @@
-#6 primeiros elementos da string espaçados de 2 em 2
+'''#6 primeiros elementos da string espaçados de 2 em 2
 frase[0:5:2]
 #obtem o tamanho da string
 len(frase)
@@ -27,4 +27,4 @@ frase.lstrip()
 #Cria uma divisão na string, gerando novas indexações e novas strings
 frase.split()
 #Junta as strings usando - como separador entre as strings
-'-'.join(frase)
+'-'.join(frase)'''
