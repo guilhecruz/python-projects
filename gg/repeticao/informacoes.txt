@@ -1,0 +1,3 @@
+FOR é usado em situações em que se sabe a quantidade de passos que queremos dar
+Já o WHILE, se mostra mais eficaz quando não se sabe a quantidade de passos que quer completar
+Ou quando se quer rodar o programa enquanto não se atinge uma condição específica
