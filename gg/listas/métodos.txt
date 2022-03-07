@@ -1,0 +1,11 @@
+-- Adicionando um elemento a lista
+lista.append("objeto")
+-- Adicionar elementos em uma posição específica
+lista.insert(0, "objeto")
+-- Apagando um elemento da lista
+del lista[n] - index
+lista.pop(n) - index
+lista.pop - remove o último item
+lista.remove(objeto) - conteúdo
+
+
