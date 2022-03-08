@@ -7,5 +7,7 @@ del lista[n] - index
 lista.pop(n) - index
 lista.pop - remove o último item
 lista.remove(objeto) - conteúdo
-
+-- Ordenando uma Lista numérica
+lista.sort()
+lista.sort(reverse=True) - Ordem reversa
 
