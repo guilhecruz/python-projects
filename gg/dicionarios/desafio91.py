@@ -13,6 +13,7 @@ print('Valores sorteados:')
 for k, v in jogo.items():
     print(f'{k} tirou {v} no dado.')
     sleep(0.75)
+print(jogo)
 #Colocando dicionário na ordem crescente
 ranking = sorted(jogo.items(), key = (itemgetter(1)), reverse = True)
 print('-='*30,'\n == Ranking dos Jogadores ==')

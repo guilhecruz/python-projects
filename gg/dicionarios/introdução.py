@@ -1,12 +1,12 @@
-'''dados = {}
+dados = {}
 dados = {'nome':'Pedro', 'idade':'25'}
 print(dados('nome')) #Pedro
 print(dados('idade')) #25
 
 #adicionando elemento
 dados['sexo'] = 'M'
-del dados['idade']'''
-'''
+del dados['idade']
+
 filme = {'titulo':'Star Wars',
          'ano': '1977',
          'direto': 'George Lucas'
@@ -15,8 +15,8 @@ print(filme.values()) #Star Wars, 1977, George Lucas #
 print(filme.keys()) #título, ano, diretor
 print(filme.items()) #Os 2
 
-for key, value in filme.items():
-    print(f'O {key} é {value}')
+for chave, valor in filme.items():
+    print(f'O {chave} é {valor}')
 #CHAVES (CADA LISTA DENTRO DE UM DICIONÁRIO)
 #VALUE (CADA VALOR DENTRO DE UMA LISTA PERTENCENTE AO DICIONÁRIO)
 #ITEMS (CONJUNTO CHAVE E VALOR)
@@ -27,7 +27,7 @@ estado1 = {'uf':'Rio de Janeiro', 'sigla':'RJ'}
 estado2 = {'uf': "São Paulo", 'sigla':'SP'}
 brasil.append(estado1)
 brasil.append(estado2)
-print(brasil)'''
+print(brasil)
 
 estado = {} #dicionário
 brasil = [] #lista
