@@ -1,8 +1,18 @@
 import sqlite3
-
+import pyodbc
 
 # Criando uma conexão com o banco de dados
-conn = sqlite3.connect('guilhermecruz.db')
+server = 'sql-estudo.database.windows.net'
+driver = '{ODBC Driver 17 for SQL Server}'
+database = 'db-estudos'
+username = 'guilherme.cruz@blueshift.com.br'
+Authentication = 'ActiveDirectoryInteractive'
+port = '1433'
+
+# conn1 = pyodbc.connect('DRIVER='+driver+';SERVER='+server+';AUTHENTICATION='+Authentication+';\
+# PORT='+port+';DATABASE='+database+';UID='+username)  # +';PWD='+password)
+
+conn = sqlite3.connect('lab02/guilhermecruz.db')
 
 # Criando um cursor
 c = conn.cursor()
@@ -40,32 +50,85 @@ def table_motoristas():
 # Criando método de leitura de todos os dados
 
 
-def leitura_usuarios():
+def listar_usuarios():
     c.execute('SELECT * FROM usuarios')
     for linha in c.fetchall():
         print(linha)
 
+# Métodos de leitura de atributos dos usuários
+
+
+def listar_usuarios_nome():
+    c.execute('SELECT * FROM usuarios ORDER BY nome')
+    for linha in c.fetchall():
+        print(linha[1])
+
+
+def listar_usuarios_bairro():
+    c.execute('SELECT * FROM usuarios ORDER BY bairro')
+    for linha in c.fetchall():
+        print(linha[4])
+
+# Métodos de leitura dos atributos dos motoristas
+
+
+def listar_motoristas_nome():
+    c.execute('SELECT * FROM motoristas ORDER BY nome')
+    for linha in c.fetchall():
+        print(linha[2])
+
+
+def listar_motoristas_cnh():
+    c.execute('SELECT * FROM motoristas ORDER BY cnh')
+    for linha in c.fetchall():
+        print(linha[1])
+
+
+def listar_onibus_modelo():
+    c.execute('SELECT * FROM onibus ORDER BY modelo')
+    for linha in c.fetchall():
+        print(linha[3])
+
+
+def listar_onibus_idmotorista():
+    c.execute('SELECT * FROM onibus ORDER BY id_motorista')
+    for linha in c.fetchall():
+        print(linha[5])
+
+# Método de leitura dos atributos de cartões
+def listar_id_cartoes():
+    c.execute('SELECT * FROM cartao ORDER BY id_cartao')
+    for linha in c.fetchall():
+        print(linha[2])
+
+
+def listar_id_prop():
+    c.execute('SELECT * FROM cartao ORDER BY id_prop')
+    for linha in c.fetchall():
+        print(linha[1])
 
 # Criando métodos de adição
+
+#   Adição de usuários
 def adicionar_usuario(nome, sobrenome, email, bairro, nascimento):
     c.execute("INSERT INTO usuarios (nome, sobrenome, email, bairro, nascimento) VALUES (?, ?, ?, ?, ?)",
               (nome, sobrenome, email, bairro, nascimento))
     conn.commit()
-    # c.close()
+   
 
-
+#   Adição de motoristas
 def adicionar_motorista(cnh, nome, sobrenome, nascimento):
     c.execute("INSERT INTO motoristas (cnh, nome, sobrenome, nascimento) VALUES (?, ?, ?, ?)",
               (cnh, nome, sobrenome, nascimento))
     conn.commit()
 
-
+#   Adição de cartões
 def adicionar_cartao(id_prop, id_cartao, creditos, tipo, emissao):
     c.execute("INSERT INTO cartao (id_prop, id_cartao, creditos, tipo, emissao) VALUES (?, ?, ?, ?, ?)",
               (id_prop, id_cartao, creditos, tipo, emissao))
     conn.commit()
 
-
+#   Adição de ônibus 
 def adicionar_onibus(placa, linha, modelo, ano, id_motorista):
     c.execute("INSERT INTO onibus (placa, linha, modelo, ano, id_motorista) VALUES (?, ?, ?, ?, ?)",
               (placa, linha, modelo, ano, id_motorista))

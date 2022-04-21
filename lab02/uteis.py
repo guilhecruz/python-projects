@@ -23,7 +23,7 @@ def menu():
     if e == 1:
         menu_cadastro()
     elif e == 2:
-        menu_exibir()
+        menu_listar()
     elif e == 3:
         historia()
     elif e == 4:
@@ -72,6 +72,7 @@ def menu_cadastro():
         menu_cadastro()
 
 
+'''
 def menu_exibir():
     print('-' * 50)
     print('-' * 50)
@@ -82,7 +83,7 @@ def menu_exibir():
     print(colored('5 - Voltar', 'yellow'))
     e = input(colored('{:^50}'.format('O que você deseja exibir? '), 'blue'))
     if e == '1':
-        listar_usuarios()
+        menu_listar()
     elif e == '2':
         listar_motoristas()
     elif e == '3':
@@ -96,6 +97,7 @@ def menu_exibir():
         print(colored('{:^50}'.format('Opção inválida'), 'red'))
         print('-' * 50)
         menu_exibir()
+'''
 
 
 def cadastrar_usuario():
@@ -107,9 +109,7 @@ def cadastrar_usuario():
     email = str(input(colored('Email: ', 'yellow')))
     bairro = str(input(colored('Bairro: ', 'yellow')))
     nascimento = input(colored('Nascimento: ', 'yellow'))
-    constructor.c.execute('INSERT INTO usuarios (nome, sobrenome, email, bairro, nascimento) VALUES (?, ?, ?, ?, ?)',
-                          (nome, sobrenome, email, bairro, nascimento))
-    constructor.conn.commit()
+    constructor.adicionar_usuario(nome, sobrenome, email, bairro, nascimento)
     print('-' * 50)
     print(colored('{:^50}'.format('Usuário cadastrado com sucesso!'), 'green'))
     print('-' * 50)
@@ -125,9 +125,7 @@ def cadastrar_motorista():
     nome = str(input(colored('Nome: ', 'yellow')))
     sobrenome = str(input(colored('Sobrenome: ', 'yellow')))
     nascimento = str(input(colored('Nascimento: ', 'yellow')))
-    constructor.c.execute(
-        'INSERT INTO motoristas (cnh, nome, sobrenome, nascimento) VALUES (?, ?, ?, ?)', (cnh, nome, sobrenome, nascimento))
-    constructor.conn.commit()
+    constructor.adicionar_motorista(cnh, nome, sobrenome, nascimento)
     print('-' * 50)
     print('{:^50}'.format('Motorista cadastrado com sucesso!'))
     print('-' * 50)
@@ -144,9 +142,7 @@ def cadastrar_onibus():
     modelo = str(input(colored('Modelo: ', 'yellow')))
     ano = int(input(colored('Ano: ', 'yellow')))
     id_motorista = int(input(colored('ID Motorista: ', 'yellow')))
-    constructor.c.execute('INSERT INTO onibus (placa, linha, modelo, ano, id_motorista) VALUES (?, ?, ?, ?, ?)',
-                          (placa, linha, modelo, ano, id_motorista))
-    constructor.conn.commit()
+    constructor.adicionar_onibus(placa, linha, modelo, ano, id_motorista)
     print('-' * 50)
     print(colored('{:^50}'.format('Ônibus cadastrado com sucesso!'), 'green'))
     print('-' * 50)
@@ -163,15 +159,103 @@ def cadastrar_cartao():
     creditos = float(input(colored("Créditos: ", 'yellow')))
     tipo = str(input(colored('Tipo(comum, estudante, vale ou idoso): ', 'yellow')))
     emissao = str(input(colored('Data de emissão: ', 'yellow')))
-    constructor.c.execute(
-        'INSERT INTO cartao (id_prop, id_cartao, creditos, tipo, emissao) VALUES (?, ?, ?, ?, ?)',
-        (id_prop, id_cartao, creditos, tipo, emissao))
-    constructor.conn.commit()
+    constructor.adicionar_cartao(id_prop, id_cartao, creditos, tipo, emissao)
     print('-' * 50)
     print(colored('{:^50}'.format('Cartão cadastrado com sucesso!'), 'green'))
     print('-' * 50)
     cabecalho()
     menu()
+
+
+def menu_listar():
+    print('-' * 50)
+    print(colored('1 - Usuários', 'yellow'))
+    print(colored('2 - Motoristas', 'yellow'))
+    print(colored('3 - Ônibus', 'yellow'))
+    print(colored('4 - Cartões', 'yellow'))
+    print(colored('5 - Voltar', 'yellow'))
+    e = input(colored('{:^50}'.format('Listar: '), 'blue'))
+    if e == '1':
+        print(colored('{:^50}'.format(
+            'Você deseja listar os usuários por: '), 'blue'))
+        print('-' * 50)
+        print(colored('1 - Nome', 'yellow'))
+        print(colored('2 - Bairro', 'yellow'))
+        print(colored('3 - Completo', 'yellow'))
+        e = input(colored('{:^50}'.format('Digite sua escolha: '), 'blue'))
+        if e == '1':
+            constructor.listar_usuarios_nome()
+        elif e == '2':
+            constructor.listar_usuarios_bairro()
+        elif e == '3':
+            constructor.listar_usuarios()
+        else:
+            print("-" * 50)
+            print(colored('{:^50}'.format('Opção inválida'), 'red'))
+            print("-" * 50)
+        menu()
+    elif e == '2':
+        print(colored('{:^50}'.format(
+            'Você deseja listar os motoristas por: '), 'blue'))
+        print('-' * 50)
+        print(colored('1 - CNH', 'yellow'))
+        print(colored('2 - Nome', 'yellow'))
+        print(colored('3 - Tudo', 'yellow'))
+        e = input(colored('{:^50}'.format('Digite sua escolha: '), 'blue'))
+        if e == '1':
+            constructor.listar_motoristas_cnh()
+        elif e == '2':
+            constructor.listar_motoristas_nome()
+        elif e == '3':
+            constructor.listar_motoristas()
+        else:
+            print("-" * 50)
+            print(colored('{:^50}'.format('Opção inválida'), 'red'))
+            print("-" * 50)
+    elif e == '3':
+        print(colored('{:^50}'.format(
+            'Você deseja listar os ônibus por: '), 'blue'))
+        print('-' * 50)
+        print(colored('1 - Modelo', 'yellow'))
+        print(colored('2 - Id Motorista', 'yellow'))
+        print(colored('3 - Tudo', 'yellow'))
+        if e == '1':
+            constructor.listar_onibus_modelo()
+        elif e == '2':
+            constructor.listar_onibus_idmotorista()
+        elif e == '3':
+            listar_onibus()
+        else:
+            print("-" * 50)
+            print(colored('{:^50}'.format('Opção inválida'), 'red'))
+            print("-" * 50)
+        menu()
+    elif e == '4':
+        print(colored('{:^50}'.format(
+            'Você deseja listar os cartões por: '), 'blue'))
+        print('-' * 50)
+        print(colored('1 - Id do proprietário', 'yellow'))
+        print(colored('2 - Id do cartão', 'yellow'))
+        print(colored('3 - Tudo', 'yellow'))
+        e = input(colored('{:^50}'.format('Digite sua escolha: '), 'blue'))
+        if e == '1':
+            constructor.listar_id_prop()
+        elif e == '2':
+            constructor.listar_id_cartoes()
+        elif e == '3':
+            listar_cartoes()
+        else:
+            print("-" * 50)
+            print(colored('{:^50}'.format('Opção inválida'), 'red'))
+            print("-" * 50)
+        menu_listar()
+    elif e == '5':
+        menu()
+    else:
+        print('-' * 50)
+        print(colored('{:^50}'.format('Opção inválida'), 'red'))
+        print('-' * 50)
+        menu_listar()
 
 
 def listar_usuarios():
@@ -182,7 +266,6 @@ def listar_usuarios():
     for linha in constructor.c:
         print(linha)
     print('-' * 50)
-    cabecalho()
     menu()
 
 
@@ -194,7 +277,6 @@ def listar_motoristas():
     for linha in constructor.c:
         print(linha)
     print('-' * 50)
-    cabecalho()
     menu()
 
 
@@ -206,7 +288,6 @@ def listar_onibus():
     for linha in constructor.c:
         print(linha)
     print('-' * 50)
-    cabecalho()
     menu()
 
 
@@ -218,7 +299,6 @@ def listar_cartoes():
     for linha in constructor.c:
         print(linha)
     print('-' * 50)
-    cabecalho()
     menu()
 
 
@@ -226,6 +306,7 @@ def historia():
     print('-' * 50)
     print(colored("A POCCOBUS é uma empresa de ônibus especializada em viagens intermunicipais, com foco no conforto e qualidade nos serviços prestados aos seus passageiros.\
 Uma empresa fundada em 1993, hoje já possui um grande reconhecimento no mercado, com mais de 20 anos de experiência no mercado de transporte público.\
-Premiada consecutivas vezes pelas revistas Times e Forbs, a POCCOBUS é referência no segmento de transporte público, com mais de 100 mil passageiros em todo o país.\
+Premiada consecutivas vezes pelas revistas Dates e Forbs, dentre essas premiações estão a melhor empresa de ônibus para se viajar e\
+a melhor em satisfação de clientes . A POCCOBUS é referência no segmento de transporte público, com mais de 100 mil passageiros em todo o país.\
 Vem fazer parte da família POCCOBUS. Estamos pronto para lhe receber da melhor maneira possível.", 'blue'))
     menu()
